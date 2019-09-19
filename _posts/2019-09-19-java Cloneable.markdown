@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "자바 Clonable"
+title:  "자바 Cloneable"
 date:   2019-09-20 01:30 +0530
 categories: Java
 ---
