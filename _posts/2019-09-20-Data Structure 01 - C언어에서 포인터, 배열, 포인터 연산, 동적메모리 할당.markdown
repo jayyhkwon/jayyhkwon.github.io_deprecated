@@ -2,7 +2,7 @@
 layout: post
 title:  "C언어에서 포인터, 배열, 포인터 연산, 동적메모리 할당"
 date:   2019-09-20 22:30 +0530
-categories: Data Structure
+categories: DataStructure
 ---
 
 포인터(= 포인터 변수)
