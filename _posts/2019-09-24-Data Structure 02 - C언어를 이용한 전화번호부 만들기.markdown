@@ -2,7 +2,7 @@
 layout: post
 title:  "C언어 전화번호부 만들기"
 date:   2019-09-24 22:30 +0530
-categories: DataStructure, C
+categories: DataStructure C
 ---
 
 ```c
