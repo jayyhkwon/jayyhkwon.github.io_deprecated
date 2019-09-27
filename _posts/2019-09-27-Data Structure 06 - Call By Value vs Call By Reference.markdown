@@ -58,7 +58,6 @@ jay' 일까 ? 'Ann' 일까?
 
 add_first()가 호출되는 과정을 좀 더 자세히 살펴보자.
 
-<img src="/assets/CallByValue_1.png">
 
 
 ```C
@@ -71,7 +70,7 @@ int main(){
     head->next=NULL;
     
     // 1. add_first("Ann",head); 호출
-    add_first("Ann",head); // 1000번지를 argument로 넘겨줌.
+    add_first("Ann",head); // 1000번지를 argument로 넘겨줌. (그림 1)
 
     // 2. add_first() 파라미터 'head'는 1000번지를 값으로 하는 포인터 변수로
     // add_first("Ann",head)에서 넘긴 argument 'head'와는 별개의 변수다.
@@ -90,11 +89,15 @@ void add_first(char *item, Node *head)
 }
 
 ```
+
+<img src="/assets/CallByValue_1.png">
+< 그림 1 >
+
 <img src="/assets/CallByValue_2.png"> 
-            < 그림 2 >
+< 그림 2 >
 
 <img src="/assets/CallByValue_3.png">
-            < 그림 3 >
+< 그림 3 >
 
 그럼 'Call by reference'는 어떻게 구현하고 동작할까?
 
@@ -128,13 +131,13 @@ void add_first(char *item, Node **pre_head)
 
 ```
 <img src="/assets/CallByRef_1.png">
-            < 그림 4 >
+< 그림 4 >
 
 <img src="/assets/CallByRef_2.png">
-            < 그림 5 >
+< 그림 5 >
 
 <img src="/assets/CallByRef_3.png">
-            < 그림 6 >
+< 그림 6 >
 
 
 끝으로 각각의 장,단점을 정리해보자면
