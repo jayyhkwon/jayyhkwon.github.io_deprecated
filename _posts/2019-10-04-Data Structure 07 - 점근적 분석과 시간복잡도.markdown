@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  " Call By Value vs Call By Reference "
+title:  " 점근적 분석과 시간복잡도 "
 date:   2019-10-04 22:30 +0530
 categories: DataStructure
 ---
