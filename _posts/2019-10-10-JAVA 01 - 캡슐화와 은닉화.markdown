@@ -1,0 +1,123 @@
+---
+layout: post
+title:  " 캡슐화와 은닉화 "
+date:   2019-10-10 07:42 +0530
+categories: JAVA
+---
+
+    객체지향 프로그래밍의 특성 중 하나인 캡슐화에 대해 찾아보다가
+    캡슐화에 대한 설명과 예제가 잘 정리되어 있는 블로그를 발견하여 그 내용을 토대로 정리 해보고자 한다.
+
+    캡슐화는 무엇인가 ?
+
+    * 캡슐화(영어: encapsulation)는 객체 지향 프로그래밍에서 다음 2가지 측면이 있다.
+        - 객체의 속성(data fields)과 행위(메서드, methods)를 하나로 묶고,
+        - 실제 구현 내용 일부를 외부에 감추어 은닉한다.
+
+    객체의 속성과 행위를 하나로 묶으면 응집도가 높아져서 좋다는 건 직관적으로 알겠는데
+    실제 구현 내용 일부를 외부에 감추는 은닉화는 굳이 왜 하는걸까?
+
+
+    예를 보며 이해해보자.
+
+    요구사항
+        - 1. 'Account' 클래스는 은행 계좌 클래스다.
+        - 2. getBalance() 메서드로 한화/달러 잔액을 확인 할 수 있다.
+        - 3. CountryCode는 추가될 수 있다.
+
+``` java
+
+ public class Account {
+    
+    private String accountName;
+    private String accountNumber;
+    private int balance;
+
+    public Account(String accountName, String accountNumber, int balance){
+        this.accountName = accountName;
+        this.accountNumber = accountNumber;
+        this.balance = balance;
+    }
+
+    public String getAccountName(){
+        return accountName;
+    }
+
+    public String accountNumber(){
+        return accountNumber;
+    }
+
+    public int getBalance(CountryCode countryCode) {
+        switch (countryCode){
+            case KR:
+                return balance;
+            case EN:
+                return balance / 1000; // 1$ = 1000원인 경우
+            default:
+                return 0;
+        }
+    }
+
+    public void add(int money) {
+        this.balance += money;
+    }
+
+    public int withdraw(int money){
+        if(balance - money >= 0)
+            this.balance -= money;
+        else
+            throw new IllegalArgumentException("not enough balance");
+
+        return money;
+    }
+}
+
+    public enum CountryCode{
+        KR,EN
+    }
+
+```
+
+은닉화는 크게 2가지로 나뉜다.
+
+    1) 필드 데이터의 은닉화
+
+```java
+    private String accountName;
+    private String accountNumber;
+    private int balance;
+```
+    필드 데이터의 접근제어자를 private으로 선언함으로써 필드데이터 조작을 막을 수 있다.
+
+    2) 기능(메서드)의 은닉화
+
+```java
+
+   public int getBalance(CountryCode countryCode) {
+        switch (countryCode){
+            case KR:
+                return balance;
+            case EN:
+                return balance / 1000; // 1$ = 1000원인 경우
+            default:
+                return 0;
+        }
+    }
+
+```
+
+사용자 입장에서 getBalance()만 호출하면 나라별 환율에 맞는 잔액을 알 수 있다.
+    1) 국가가 추가되는 경우
+    2) 환율이 변동하는 경우를 신경쓸 필요가 없으므로
+추후에 변경사항이 생기더라도 Account 클래스 내부만 수정하면 된다.
+
+따라서 결합도를 낮추고 코드의 재사용성을 높일 수 있다는 장점이 있다.
+
+ * 결론 
+
+캡슐화를 하게 되면 내부에 데이터를 어떻게 저장하는 지, 그 데이터를 어떻게 처리하는 지, 또는 특정 기능을 어떻게 제공하는 지에 대한 내용은 드러내지 않는다. 단지, 객체가 어떤 기능을 제공하는 지만 공유하게 된다.
+
+
+ref. https://cheese10yun.github.io/encapsulation-part-1/
+ref. https://javacan.tistory.com/entry/EncapsulationExcerprtFromJavaBook
+ref. https://ko.wikipedia.org/wiki/%EC%BA%A1%EC%8A%90%ED%99%94
