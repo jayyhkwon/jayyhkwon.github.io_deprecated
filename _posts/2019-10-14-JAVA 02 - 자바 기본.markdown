@@ -1,0 +1,69 @@
+---
+layout: post
+title:  " 자바 기본 "
+date:   2019-10-14 21:30 +0530
+categories: JAVA
+---
+
+"JAVA 프로그래밍 면접 이렇게 준비한다 - 한빛미디어"를 학습하며 공부한 것을 정리한 내용입니다.
+
+소개
+1. 원시 타입
+2. 객체란 무엇인가?
+3. final 키워드의 역활
+
+---
+
+1. 원시 타입
+- Boolean, int, double 같은 각각의 기본 타입은 <b>원시 타입</b>이라고 알려져 있다.
+  JVM은 이들을 객체라고 알려진 참조 타입과는 다른 방식으로 다룬다.
+  원시타입들은 항상 값이 있는 상태, 즉 Null이 될 수 없기 때문이다.
+
+---
+---
+
+2. 객체란 무엇인가?
+- 상태와 행위의 모음.
+  원시 타입을 제외하면 자바에서 모든 변수들은 참조 타입이다.
+  객체는 여러 가지 의미에서 원시 타입과 다르며 가장 중요한 차이점은 빈 객체를 의미하는 표현인 null이 존재한다는 것이다.
+  즉, 변수들은 null로 설정될 수 있으며 메서드 또한 null을 반환할 수 있다.
+  그러나 Null 참조에 대한 메서드를 호출할 수는 없다. 호출하려고 하면 NullPointerException이 발생한다.
+  
+  객체가 '참조 타입이다'라는 말이 정확히 무슨 의미인지 살펴보자.
+
+  ```java
+  /* 원시 타입 */
+  int i = 42; // 변수 i에 42라는 값이 할당된다.
+  int j = i;  // 변수 j에 i와 같은 42라는 값을 할당한다.
+  j = 50; // j의 값을 50으로 변경
+
+  System.out.println(i); // 42
+  System.out.println(j); // 50
+
+  /* 참조 타입 */
+  List<Integer> list = new ArrayList(); // ArrayList를 생성하고 주소값을 list에 할당한다.
+  list.add(1);
+
+  List<Integer> list2 = list; // list2에 ArrayList의 주소값을 할당한다.
+  list2.add(2);
+
+  System.out.println(list.size()); // list와 list2는 같은 주소값을 가지므로 list.size()의 반환 값은 2이다.
+
+  ```
+---
+
+3. final 키워드의 역활
+- 변수를 선언하고 값을 할당하고 나면 메모리 위치가 변경되지 않는다.
+  객체에 선언하는 final 키워드는 원시 타입에 선언하는 final 키워드와 동일한 역활을 한다.
+  단, 객체 내부의 값들은 개별 값들이 final이 아니라면 변경할 수 있다.
+
+
+```java
+
+    final int num = 1;
+    num = 2; // 컴파일 에러. 할당이 되고 난 뒤에는 변경이 불가능하다.
+        
+    final List<Integer> list = new ArrayList<>();
+    list = new ArrayList<>(); // // 컴파일 에러. 할당이 되고 난 뒤에는 변경이 불가능하다.
+
+```
