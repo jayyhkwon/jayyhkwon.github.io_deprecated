@@ -1,0 +1,42 @@
+---
+layout: post
+title:  " main() 메서드가 public static void main(String args[])인 이유"
+date:   2019-10-16 10:30 +0530
+categories: JAVA
+---
+
+자바언어로 프로그래밍하면서 공식처럼 사용하던 main() 메서드가 왜 public static void main(String args[])인지
+
+궁금해져 한번 찾아보았다.
+
+```java
+
+// main() 메서드
+public static void main(String args[]){
+
+}
+
+```
+
+<b>자바 어플리케이션을 실행하면 자바 인터프리터에 의해 main() 메서드가 가장 먼저 호출된다.</b>
+
+메서드를 하나씩 뜯어보면
+
+1) 접근 제어자는 public
+  - 클래스 외부에서 main() 메서드를 호출하므로 접근제어자는 public이여야 한다.
+
+2) static keyword
+  - 인스턴스화 하지 않고 호출 가능하다.
+
+3) void
+  - 리턴 타입이 void.
+
+4) main(String args[])
+  - 메서드명은 main이며, String 배열을 argument로 가진다.
+
+intellJ에서는 static 키워드를 제외하면 실행이 되지 않음을 미리 알려준다.
+
+<img src="/assets/main().png"/>
+<img src="/assets/main()2.png"/>
+
+ref. http://cs-fundamentals.com/tech-interview/java/why-does-main-method-have-to-be-static.php
