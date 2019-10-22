@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  " Java 8 in Action(2)"
-date:   2019-10-20 10:30 +0530
+date:   2019-10-22 10:30 +0530
 categories: JAVA
 ---
 Java 8 in Action(Chapter 2)
