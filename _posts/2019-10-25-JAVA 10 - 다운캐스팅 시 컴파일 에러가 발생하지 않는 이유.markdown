@@ -1,0 +1,99 @@
+---
+layout: post
+title:  " 다운캐스팅 시 컴파일 에러가 발생하지 않는 이유 "
+date:   2019-10-25 10:30 +0530
+categories: JAVA
+---
+
+다운캐스팅 시 컴파일 에러가 발생하지 않는 이유
+
+* 다운 캐스팅이란?
+
+상위 클래스에서 하위 클래스로 캐스팅 하는 것.
+
+
+```java
+
+   public static void main(String[] args) {
+        Object obj = new Object();
+        String s = (String) obj; // down-casting
+        Object o = (Object) new String("string"); // up-casting
+
+    }
+
+```
+
+본격적인 설명에 들어가기 전에 클래스 다이어그램을 보자.
+
+<img src="/assets/classDiagram.png">
+
+알다시피 Object 클래스는 자바에 존재하는 모든 객체들의 최상위 클래스다.
+따라서 Object가 아닌 객체 -> Object(업 캐스팅) : true
+Object -> Object가 아닌 객체(다운 캐스팅) : ?
+
+Object를 확장한 객체는 Object 객체가 가진 데이터(프로퍼티,메서드)보다 많은 걸 내포할 가능성이 있기 때문이다.
+
+위 코드는 컴파일 시점에서는 문제가 없지만
+코드를 실행하게 되면 <b>Exception in thread "main" java.lang.ClassCastException: java.lang.Object cannot be cast to java.lang.String</b> runtime Exception이 발생한다.
+
+미리 컴파일시점에 이런 문제를 발견하면 좋을텐데 왜 컴파일러는 이런 문제를 발견하지 못하는 걸까?
+
+바로 객체의 동적 할당과 다형성 때문이다.
+
+```java
+
+   public static void main(String[] args) {
+        Object obj = new Object();
+        String s = (String) obj; // down-casting (throw ClassCastException)
+
+        Object strObj = new String("str"); // type is Object, but Concrete class is String.
+        String str = (String) strObj; // down-casting (valid)
+    }
+
+```
+
+자바는 new 연산자를 통해 객체를 동적 할당(런타임 시점에 할당) 하므로 
+컴파일 시점에서는 변수 obj, strObj는 Object 타입이라는 것만 알 수 있고 실제 할당되는 객체는 알 수 없다.
+
+* 컴파일 시점
+
+```java
+
+// 컴파일 시점(실제 할당되는 객체는 알 수 없다)
+Object obj = null;
+String s = (String) obj;
+Object strObj = null;
+String str = (String) strObj;
+
+```
+
+-> <b>String 타입은 Object 타입이므로 (다형성) 컴파일러 입장에서 obj와 strObj의 구현 클래스를 모르는 상황에서 캐스팅을 막을 수 없다.</b>
+
+* 런타임 시점
+
+```java
+
+// 런타임 시점(실제 객체가 할당된다)
+Object obj = new Object();
+String s = (String) obj; // down-casting (throw ClassCastException)
+Object strObj = new String("str");
+String str = (String) strObj; // down-casting (valid)
+```
+->  1. obj    : 구현 클래스(Object) -> String으로 캐스팅 하였으므로  ClassCastException이 발생.
+    2. strObj : 구현 클래스(String) -> String으로 캐스팅 하였으므로 캐스팅 성공.
+
+
+자바 컬렉션 프레임워크(JCF)의 사용이 보편화된 이유 중에 하나도
+JCF가 탄생하기 전에 Object 타입을 이용한 컨테이너를 만들어 사용할 때 발생하는
+1. element를 꺼낼때마다 일일이 캐스팅 해야 하는 번거로움
+2. 다운 캐스팅 문제발생 가능성이 존재 한다고 알고 있었는데 
+이번 기회를 통해 확실히 JCF의 소중함을 알게 되었다.
+
+
+
+ref. https://stackoverflow.com/questions/14180861/downcasting-upcasting-error-at-compile-time-runtime
+ref. https://www.geeksforgeeks.org/new-operator-java/
+ref. https://www.geeksforgeeks.org/g-fact-46/
+ref. https://docs.oracle.com/cd/E13150_01/jrockit_jvm/jrockit/geninfo/diagnos/garbage_collect.html#wp1085990
+
+

@@ -1,0 +1,65 @@
+---
+layout: post
+title:  " List.add()가 항상 return true인 이유 "
+date:   2019-10-25 10:30 +0530
+categories: JAVA
+---
+
+List.add()가 항상 return true인 이유
+
+List.add()의 return type이 boolean인데
+List 인터페이스의 구현 클래스인 ArrayList와 LinkedList의 return 값이 항상 true인 게 의문이 들었다.
+
+
+```java
+
+ArrayList.java
+
+    /**
+     * Appends the specified element to the end of this list.
+     *
+     * @param e element to be appended to this list
+     * @return <tt>true</tt> (as specified by {@link Collection#add})
+     */
+    public boolean add(E e) {
+        ensureCapacityInternal(size + 1);  // Increments modCount!!
+        elementData[size++] = e;
+        return true;
+    }
+
+
+```
+
+```java
+
+LinkedList.java
+
+    /**
+     * Appends the specified element to the end of this list.
+     *
+     * <p>This method is equivalent to {@link #addLast}.
+     *
+     * @param e element to be appended to this list
+     * @return {@code true} (as specified by {@link Collection#add})
+     */
+    public boolean add(E e) {
+        linkLast(e);
+        return true;
+    }
+
+```
+
+그래서 List의 superType인 Collection을 찾아봤더니
+
+```
+Ensures that this collection contains the specified element (optional operation). Returns true if this collection changed as a result of the call. (Returns false if this collection does not permit duplicates and already contains the specified element.) -java doc-
+```
+
+Collection에 중복이 허용되지 않거나, 특정 element가 존재하는 경우 return false라고 한다.
+
+List 타입은 중복을 허용하므로 ArrayList와 LinkedList가 항상 true를 리턴 할 수 밖에 없구나..
+
+ref. https://docs.oracle.com/javase/7/docs/api/
+
+
+
