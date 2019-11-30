@@ -1,0 +1,40 @@
+---
+layout: post
+title:  " 20191130_TIL "
+date:   2019-11-30 23:30 +0530
+categories: Spring
+---
+
+
+
+## 11/30 토요일
+
+
+
+1. SQLD 시험
+
+
+
+
+
+2. 스프링 프레임워크 핵심 기술
+
+   - @Autowired 사용방법
+
+     - 1. 생성자를 이용한 주입
+     - 2. Setter를 이용한 주입
+          - required = false 명시하면 자식 bean 없어도 생성가능하다.
+
+     - 3. 같은 타입의 빈이 여러 개인 경우
+          1) @Primary
+
+          2) @Qualifier("클래스명")
+          3) List<"Bean"> -> 같은 타입의 모든 빈을 받는다.
+
+          4) 원하는 Bean 클래스명으로 필드명 변경
+
+          
+
+       4. BeanPostProcessor의 구현체 AutowiredAnnotationBeanPostProcessor에 의해 처리된다.
+
+          - 자세한 내용은 Bean Lifecycle Callback 참고
