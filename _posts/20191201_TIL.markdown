@@ -1,0 +1,23 @@
+---
+layout: post
+title:  " 20191201_TIL "
+date:   2019-12-01 23:30 +0530
+categories: Spring
+---
+
+
+
+## 12/01 일요일
+
+
+
+1. REST API by TDD
+   - list, create 완성
+
+
+
+내일 할일
+
+- 프로자백러 복습
+  - CRUD 한 사이클 모두 완성
+- 알고리즘
