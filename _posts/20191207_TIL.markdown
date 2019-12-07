@@ -1,0 +1,36 @@
+---
+layout: post
+title:  " 20191207_TIL "
+date:   2019-12-07 23:30 +0530
+categories: TIL
+---
+
+
+
+## 12/07 토요일
+
+
+
+1. 스프링 프레임워크 핵심 기술
+  
+   - @ComponentScan
+   
+     - 스캔 위치 : 해당 클래스가 존재하는 패키지를 포함한 하위 패키지
+   
+     - 필터 : 어떤 애노테이션을 스캔 할지 말지 결정
+   
+     - 동작 원리
+   
+       - @ComponentScan은 스캔할 패키지와 애노테이션에 대한 정보
+   
+       - 실제 스캐닝은 ConfigurationClassPostProcessor라는 BeanFactoryPostProcessor에 의해 처리됨
+   
+         
+   
+   - @Component (컴포넌트스캔 대상)
+   
+     - @Repository
+     - @Service
+     - @Controller
+     - @Configuration
+       
